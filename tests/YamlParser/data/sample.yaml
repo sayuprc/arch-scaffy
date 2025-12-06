@@ -1,0 +1,9 @@
+array:
+  - a
+  - b
+  - c
+
+object:
+  list:
+    - name: value 1
+    - name: value 2
