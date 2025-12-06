@@ -8,4 +8,6 @@ enum Kind: string
 {
     case Class = 'class';
     case Interface = 'interface';
+    case Trait = 'trait';
+    case Enum = 'enum';
 }
