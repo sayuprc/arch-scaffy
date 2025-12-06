@@ -9,7 +9,7 @@ final readonly class Scaffold
     public function __construct(
         public string $name,
         public string $layer,
-        public ScaffoldType $type,
+        public Kind $kind,
     ) {
     }
 }
