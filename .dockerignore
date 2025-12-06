@@ -6,6 +6,7 @@
 /vendor
 .editorconfig
 .gitignore
+.phpunit.result.cache
 compose.yaml
 composer.json
 composer.lock
