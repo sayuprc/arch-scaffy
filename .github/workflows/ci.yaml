@@ -1,0 +1,138 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 0.x
+
+env:
+  VENDOR_PATH: ./vendor
+  VENDOR_KEY_PREFIX: composer-
+
+jobs:
+  setup:
+    name: Setup
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ["8.4"]
+
+    outputs:
+      versions: ${{ steps.define-variables.outputs.VERSIONS }}
+      vendor-key: ${{ steps.define-variables.outputs.VENDOR_KEY }}
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Define variables
+        id: define-variables
+        run: |
+          echo "VERSIONS=${{ matrix.php-versions }}" >> $GITHUB_OUTPUT
+          echo "VENDOR_KEY=${{ env.VENDOR_KEY_PREFIX }}${{ hashFiles('**/composer.lock') }}" >> $GITHUB_OUTPUT
+
+      - name: Cache composer
+        id: cache-composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.VENDOR_PATH }}
+          key: ${{ steps.define-variables.outputs.VENDOR_KEY }}
+
+      - name: Composer install
+        if: steps.cache-composer.outputs.cache-hit != 'true'
+        run: composer install -n --prefer-dist
+
+  phpstan:
+    needs: setup
+
+    name: PHPStan
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ needs.setup.outputs.versions }}
+
+      - name: Cache composer
+        id: cache-composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.VENDOR_PATH }}
+          key: ${{ needs.setup.outputs.vendor-key }}
+
+      - name: Run PHPStan
+        run: composer phpstan
+
+  ecs:
+    needs: setup
+
+    name: EasyCodingStandard
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ needs.setup.outputs.versions }}
+
+      - name: Cache composer
+        id: cache-composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.VENDOR_PATH }}
+          key: ${{ needs.setup.outputs.vendor-key }}
+
+      - name: Run ecs
+        run: composer ecs
+
+  phpunit:
+    needs: setup
+
+    name: PHPUnit
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ needs.setup.outputs.versions }}
+
+      - name: Cache composer
+        id: cache-composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.VENDOR_PATH }}
+          key: ${{ needs.setup.outputs.vendor-key }}
+
+      - name: Run PHPUnit
+        run: composer phpunit
