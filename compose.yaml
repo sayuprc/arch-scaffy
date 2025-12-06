@@ -1,0 +1,11 @@
+services:
+  php:
+    image: arch-scaffy:0.x
+    container_name: arch-scaffy
+    environment:
+      LANG: ja_JP.UTF-8
+      TZ: Asia/Tokyo
+    tty: true
+    volumes:
+      - .:/app
+      - ./php.ini:/usr/local/etc/php/php.ini
