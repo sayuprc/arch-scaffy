@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ArchScaffy\Config;
+namespace ArchScaffy\Config\Global;
 
 final readonly class GlobalConfig
 {
