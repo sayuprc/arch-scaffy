@@ -7,11 +7,11 @@ namespace ArchScaffy\Config\Feature;
 final readonly class Feature
 {
     /**
-     * @param array<Scaffold> $scaffolds
+     * @param array<Component> $components
      */
     public function __construct(
         public string $name,
-        public array $scaffolds,
+        public array $components,
     ) {
     }
 }
