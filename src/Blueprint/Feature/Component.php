@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Config\Feature;
 
-final readonly class Scaffold
+final readonly class Component
 {
     public function __construct(
         public string $name,

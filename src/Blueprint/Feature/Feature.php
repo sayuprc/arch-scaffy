@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Config\Feature;
 
-final readonly class FeatureConfig
+final readonly class Feature
 {
+    /**
+     * @param array<Component> $components
+     */
     public function __construct(
         public string $name,
+        public array $components,
     ) {
     }
 }
