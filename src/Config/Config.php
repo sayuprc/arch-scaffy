@@ -6,7 +6,9 @@ namespace ArchScaffy\Config;
 
 final readonly class Config
 {
-    public function __construct(public ClassConfig $class)
-    {
+    public function __construct(
+        public GlobalConfig $global,
+        public ClassConfig $class,
+    ) {
     }
 }
