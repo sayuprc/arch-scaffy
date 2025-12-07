@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ArchScaffy\Config\Default;
+namespace ArchScaffy\Config;
 
-final readonly class DefaultClassConfig
+final readonly class ClassConfig
 {
     public function __construct(
         public bool $final,
