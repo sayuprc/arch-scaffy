@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ArchScaffy\Config;
+namespace ArchScaffy\Config\Class;
 
 final readonly class ClassConfig
 {
