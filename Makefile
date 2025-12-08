@@ -41,9 +41,9 @@ phpstan: ## Run PHPStan
 phpstan-clear-cache: ## Clear PHPStan cache
 	docker exec ${CONTAINER} composer phpstan-clear-cache
 
-.PHONY: phpunit
-phpunit: ## Run PHPUnit
-	docker exec ${CONTAINER} composer phpunit
+.PHONY: tests
+tests: ## Run tests
+	docker exec ${CONTAINER} composer tests
 
 .PHONY: ecs
 ecs: ## Run ecs

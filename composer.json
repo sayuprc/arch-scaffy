@@ -37,7 +37,7 @@
         "phpstan-clear-cache": "phpstan clear-result-cache",
         "ecs": "ecs check --ansi --no-progress-bar",
         "ecs-fix": "ecs check --fix --ansi --no-progress-bar",
-        "phpunit": "paratest tests"
+        "tests": "paratest tests"
     },
     "config": {
         "sort-packages": true

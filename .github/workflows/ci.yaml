@@ -109,10 +109,10 @@ jobs:
       - name: Run ecs
         run: composer ecs
 
-  phpunit:
+  testing:
     needs: setup
 
-    name: PHPUnit
+    name: Testing
 
     runs-on: ubuntu-latest
 
@@ -134,5 +134,5 @@ jobs:
           path: ${{ env.VENDOR_PATH }}
           key: ${{ needs.setup.outputs.vendor-key }}
 
-      - name: Run PHPUnit
-        run: composer phpunit
+      - name: Run tests
+        run: composer tests
