@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ArchScaffy\Config\Layer;
+namespace ArchScaffy\Blueprint\Layer;
 
 final readonly class Layer
 {
