@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ArchScaffy\Config\Feature;
+namespace ArchScaffy\Blueprint\Feature;
 
 enum Kind: string
 {

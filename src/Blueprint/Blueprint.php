@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Blueprint;
 
-use ArchScaffy\Config\Feature\Feature;
-use ArchScaffy\Config\Layer\Layer;
+use ArchScaffy\Blueprint\Feature\Feature;
+use ArchScaffy\Blueprint\Layer\Layer;
 
 final readonly class Blueprint
 {
