@@ -16,6 +16,6 @@ final readonly class InterfaceIr implements ComponentIrInterface
 
     public function accept(IrConverterInterface $printer)
     {
-        return $printer->convertInterface($this);
+        return $printer->toInterface($this);
     }
 }

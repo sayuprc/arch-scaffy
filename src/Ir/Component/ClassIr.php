@@ -16,6 +16,6 @@ final readonly class ClassIr implements ComponentIrInterface
 
     public function accept(IrConverterInterface $printer)
     {
-        return $printer->convertClass($this);
+        return $printer->toClass($this);
     }
 }
