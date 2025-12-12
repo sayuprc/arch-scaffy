@@ -4,21 +4,14 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ir\Converter;
 
-use ArchScaffy\Ir\Component\ClassIr;
-use ArchScaffy\Ir\Component\InterfaceIr;
+use ArchScaffy\Blueprint\Blueprint;
+use ArchScaffy\Config\Config;
+use ArchScaffy\Ir\FileIr;
 
-/**
- * @template-covariant T
- */
 interface IrConverterInterface
 {
     /**
-     * @return T
+     * @return array<FileIr>
      */
-    public function toClass(ClassIr $class);
-
-    /**
-     * @return T
-     */
-    public function toInterface(InterfaceIr $interface);
+    public function toFileIrs(Config $config, Blueprint $blueprint): array;
 }

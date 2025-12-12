@@ -4,31 +4,50 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ir\Converter;
 
+use ArchScaffy\Blueprint\Blueprint;
+use ArchScaffy\Blueprint\Feature\Component;
+use ArchScaffy\Blueprint\Feature\Kind;
+use ArchScaffy\Config\Config;
 use ArchScaffy\Ir\Component\ClassIr;
 use ArchScaffy\Ir\Component\InterfaceIr;
-use PhpParser\BuilderFactory;
-use PhpParser\Node;
+use ArchScaffy\Ir\FileIr;
 
-/**
- * @template-implements IrConverterInterface<Node>
- */
 final readonly class IrConverter implements IrConverterInterface
 {
-    public function __construct(private BuilderFactory $factory)
+    public function __construct()
     {
     }
 
-    public function toClass(ClassIr $class): Node
+    public function toFileIrs(Config $config, Blueprint $blueprint): array
     {
-        return $this->factory->namespace($class->namespace)
-            ->addStmt($this->factory->class($class->name))
-            ->getNode();
+        $fileIrs = [];
+
+        foreach ($blueprint->features as $feature) {
+            foreach ($feature->components as $component) {
+                $layer = $blueprint->getLayer($component->layer);
+
+                $fileIrs[] = new FileIr(
+                    $layer->output,
+                    $config->global->strict,
+                    $layer->namespace,
+                    match ($component->kind) {
+                        Kind::ClassKind => $this->toClass($component),
+                        Kind::Interface => $this->toInterface($component),
+                    },
+                );
+            }
+        }
+
+        return $fileIrs;
     }
 
-    public function toInterface(InterfaceIr $interface): Node
+    private function toClass(Component $component): ClassIr
     {
-        return $this->factory->namespace($interface->namespace)
-            ->addStmt($this->factory->interface($interface->name))
-            ->getNode();
+        return new ClassIr($component->name);
+    }
+
+    private function toInterface(Component $component): InterfaceIr
+    {
+        return new InterfaceIr($component->name);
     }
 }

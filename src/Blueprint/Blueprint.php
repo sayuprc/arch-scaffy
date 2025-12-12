@@ -6,6 +6,7 @@ namespace ArchScaffy\Blueprint;
 
 use ArchScaffy\Blueprint\Feature\Feature;
 use ArchScaffy\Blueprint\Layer\Layer;
+use LogicException;
 
 final readonly class Blueprint
 {
@@ -17,5 +18,11 @@ final readonly class Blueprint
         public array $layers,
         public array $features,
     ) {
+    }
+
+    public function getLayer(string $layer): Layer
+    {
+        // TODO enhance validation
+        return $this->layers[$layer] ?? throw new LogicException("Attempted to reference a non-existent Layer: {$layer}");
     }
 }
