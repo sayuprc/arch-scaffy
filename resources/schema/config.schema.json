@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema#",
-    "$id": "arch-scaffy-config-schema",
+    "$id": "https://github.com/sayuprc/arch-scaffy/v1/config.schema.json",
     "title": "Config schema for ArchScaffy",
     "description": "ArchScaffy configuration file schema",
     "type": "object",
