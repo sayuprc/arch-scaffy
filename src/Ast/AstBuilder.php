@@ -4,27 +4,35 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ast;
 
-use ArchScaffy\Ir\Component\ClassIr;
-use ArchScaffy\Ir\Component\InterfaceIr;
-use PhpParser\BuilderFactory;
+use ArchScaffy\Ir\FileIr;
 use PhpParser\Node;
+use PhpParser\Node\DeclareItem;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Scalar\Int_;
+use PhpParser\Node\Stmt\Declare_;
 
 /**
- * @template-implements AstBuilderInterface<Node>
+ * @template-implements AstBuilderInterface<array<Node>>
  */
 final readonly class AstBuilder implements AstBuilderInterface
 {
-    public function __construct(private BuilderFactory $factory)
+    /**
+     * @param AstComponentBuilderInterface<Node> $builder
+     */
+    public function __construct(private AstComponentBuilderInterface $builder)
     {
     }
 
-    public function buildClass(ClassIr $class): Node
+    public function build(FileIr $file): array
     {
-        return $this->factory->class($class->name)->getNode();
-    }
+        $nodes = [];
 
-    public function buildInterface(InterfaceIr $interface): Node
-    {
-        return $this->factory->interface($interface->name)->getNode();
+        if ($file->isStrict) {
+            $nodes[] = new Declare_([new DeclareItem(new Identifier('strict_types'), new Int_(1))]);
+        }
+
+        $nodes[] = $file->component->accept($this->builder);
+
+        return $nodes;
     }
 }

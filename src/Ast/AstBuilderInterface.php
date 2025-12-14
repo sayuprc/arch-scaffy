@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ast;
 
-use ArchScaffy\Ir\Component\ClassIr;
-use ArchScaffy\Ir\Component\InterfaceIr;
+use ArchScaffy\Ir\FileIr;
 
 /**
  * @template-covariant T
@@ -15,10 +14,5 @@ interface AstBuilderInterface
     /**
      * @return T
      */
-    public function buildClass(ClassIr $class);
-
-    /**
-     * @return T
-     */
-    public function buildInterface(InterfaceIr $interface);
+    public function build(FileIr $file);
 }
