@@ -6,6 +6,7 @@ namespace ArchScaffy\Mapper;
 
 use CuyZ\Valinor\Mapper\Source\Source;
 use CuyZ\Valinor\MapperBuilder;
+use Override;
 
 readonly class Mapper implements MapperInterface
 {
@@ -13,6 +14,7 @@ readonly class Mapper implements MapperInterface
     {
     }
 
+    #[Override]
     public function map(string $signature, array $source): mixed
     {
         return $this->builder

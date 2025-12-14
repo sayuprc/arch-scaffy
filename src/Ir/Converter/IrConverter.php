@@ -11,13 +11,11 @@ use ArchScaffy\Config\Config;
 use ArchScaffy\Ir\Component\ClassIr;
 use ArchScaffy\Ir\Component\InterfaceIr;
 use ArchScaffy\Ir\FileIr;
+use Override;
 
 final readonly class IrConverter implements IrConverterInterface
 {
-    public function __construct()
-    {
-    }
-
+    #[Override]
     public function toFileIrs(Config $config, Blueprint $blueprint): array
     {
         $fileIrs = [];
