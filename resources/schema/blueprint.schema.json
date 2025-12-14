@@ -1,0 +1,71 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "$id": "https://github.com/sayuprc/arch-scaffy/v1/blueprint.schema.json",
+    "title": "Blueprint schema for ArchScaffy",
+    "description": "ArchScaffy blueprint file schema",
+    "type": "object",
+    "properties": {
+        "layers": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "output": {
+                        "type": "string",
+                    },
+                    "namespace": {
+                        "type": "string",
+                    }
+                },
+                "required": [
+                    "output",
+                    "namespace"
+                ]
+            }
+        },
+        "features": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "components": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Component name"
+                                },
+                                "layer": {
+                                    "type": "string",
+                                    "description": "Name of the layer the component belongs to"
+                                },
+                                "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                        "class",
+                                        "interface"
+                                    ],
+                                    "description": "Type of the component"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "layer",
+                                "kind"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "components"
+                ]
+            }
+        }
+    },
+    "required": [
+        "layers",
+        "features"
+    ]
+}
