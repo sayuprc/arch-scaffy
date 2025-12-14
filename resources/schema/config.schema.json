@@ -1,0 +1,47 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "$id": "arch-scaffy-config-schema",
+    "title": "Config schema for ArchScaffy",
+    "description": "ArchScaffy configuration file schema",
+    "type": "object",
+    "properties": {
+        "global": {
+            "type": "object",
+            "description": "Settings applied to all generated files",
+            "properties": {
+                "strict": {
+                    "type": "boolean",
+                    "description": "Strict mode enabled",
+                    "default": true
+                }
+            },
+            "required": [
+                "strict"
+            ]
+        },
+        "class": {
+            "type": "object",
+            "description": "Default configuration applied to generated classes",
+            "properties": {
+                "final": {
+                    "type": "boolean",
+                    "description": "Final class enabled",
+                    "default": false
+                },
+                "readonly": {
+                    "type": "boolean",
+                    "description": "readonly class enabled",
+                    "default": false
+                }
+            },
+            "required": [
+                "final",
+                "readonly"
+            ]
+        }
+    },
+    "required": [
+        "global",
+        "class"
+    ]
+}
