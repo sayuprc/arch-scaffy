@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace ArchScaffy\YamlParser;
 
+use Override;
 use Symfony\Component\Yaml\Yaml;
 use UnexpectedValueException;
 
 class YamlParser implements YamlParserInterface
 {
+    #[Override]
     public function parseFile(string $file): array
     {
         $array = Yaml::parseFile($file);

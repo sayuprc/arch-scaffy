@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ArchScaffy\Ast;
 
 use ArchScaffy\Ir\FileIr;
+use Override;
 use PhpParser\Node;
 use PhpParser\Node\DeclareItem;
 use PhpParser\Node\Identifier;
@@ -23,6 +24,7 @@ final readonly class AstBuilder implements AstBuilderInterface
     {
     }
 
+    #[Override]
     public function build(FileIr $file): array
     {
         $nodes = [];
