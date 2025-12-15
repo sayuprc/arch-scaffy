@@ -3,6 +3,7 @@
 
 declare(strict_types=1);
 
+use ArchScaffy\Command\GenerateCommand;
 use ArchScaffy\Command\InitCommand;
 use Composer\InstalledVersions;
 use DI\ContainerBuilder;
@@ -24,7 +25,7 @@ $application = new Application(
     InstalledVersions::getPrettyVersion('sayuprc/arch-scaffy') ?? 'unknown'
 );
 
-foreach ([InitCommand::class] as $signature) {
+foreach ([InitCommand::class, GenerateCommand::class] as $signature) {
     /** @var Command $command */
     $command = $container->make($signature);
 
