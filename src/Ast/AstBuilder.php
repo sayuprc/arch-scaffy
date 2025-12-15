@@ -9,8 +9,10 @@ use Override;
 use PhpParser\Node;
 use PhpParser\Node\DeclareItem;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Stmt\Declare_;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Nop;
 
 /**
@@ -37,8 +39,10 @@ final readonly class AstBuilder implements AstBuilderInterface
             $nodes = [];
         }
 
-        $nodes[] = $file->component->accept($this->builder);
-
-        return $nodes;
+        return [
+            ...$nodes,
+            new Namespace_(new Name($file->namespace)),
+            $file->component->accept($this->builder),
+        ];
     }
 }
