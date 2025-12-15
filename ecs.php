@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 
 return ECSConfig::configure()
     ->withPaths([
-        __DIR__ . '/bin/arch-scaffy',
+        __DIR__ . '/bin/scaffy',
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
