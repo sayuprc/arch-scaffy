@@ -10,7 +10,7 @@ use DI\ContainerBuilder;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
-foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+foreach ([__DIR__ . '/../vendor/autoload.php'] as $file) {
     if (file_exists($file)) {
         require_once $file;
 
