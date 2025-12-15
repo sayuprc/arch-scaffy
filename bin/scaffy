@@ -3,9 +3,11 @@
 
 declare(strict_types=1);
 
+use ArchScaffy\Command\InitCommand;
 use Composer\InstalledVersions;
 use DI\ContainerBuilder;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 
 foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
     if (file_exists($file)) {
@@ -22,5 +24,11 @@ $application = new Application(
     InstalledVersions::getPrettyVersion('sayuprc/arch-scaffy') ?? 'unknown'
 );
 
-// TODO implements
+foreach ([InitCommand::class] as $signature) {
+    /** @var Command $command */
+    $command = $container->make($signature);
+
+    $application->addCommand($command);
+}
+
 $application->run();
