@@ -3,6 +3,9 @@
 
 declare(strict_types=1);
 
+use Composer\InstalledVersions;
+use Symfony\Component\Console\Application;
+
 foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
     if (file_exists($file)) {
         require_once $file;
@@ -11,4 +14,10 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
     }
 }
 
+$application = new Application(
+    'Arch Scaffy',
+    InstalledVersions::getPrettyVersion('sayuprc/arch-scaffy') ?? 'unknown'
+);
+
 // TODO implements
+$application->run();
