@@ -1,6 +1,6 @@
 parameters:
   paths:
-    - bin/arch-scaffy
+    - bin/scaffy
     - src
 
   level: max
