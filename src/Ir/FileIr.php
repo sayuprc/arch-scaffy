@@ -9,7 +9,7 @@ use ArchScaffy\Ir\Component\ComponentIrInterface;
 final readonly class FileIr
 {
     public function __construct(
-        private string $output,
+        public string $output,
         public bool $isStrict,
         public string $namespace,
         public ComponentIrInterface $component,
@@ -18,6 +18,6 @@ final readonly class FileIr
 
     public function getFilePath(): string
     {
-        return $this->output . '/' . $this->component->name();
+        return $this->output . '/' . $this->component->name() . '.php';
     }
 }
