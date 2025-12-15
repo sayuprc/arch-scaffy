@@ -1,7 +1,7 @@
 {
     "name": "sayuprc/arch-scaffy",
     "description": "Scaffolding tool that generates boilerplate code for layered architecture projects from YAML configuration",
-    "type": "project",
+    "type": "library",
     "license": "MIT",
     "require": {
         "php": "^8.4",
