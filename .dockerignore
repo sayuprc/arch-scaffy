@@ -1,5 +1,6 @@
 /.github
 /bin
+/config
 /resources
 /src
 /tests

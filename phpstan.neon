@@ -1,6 +1,7 @@
 parameters:
   paths:
     - bin/scaffy
+    - config
     - src
 
   level: max
