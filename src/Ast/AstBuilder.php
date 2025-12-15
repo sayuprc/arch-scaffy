@@ -11,6 +11,7 @@ use PhpParser\Node\DeclareItem;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Stmt\Declare_;
+use PhpParser\Node\Stmt\Nop;
 
 /**
  * @template-implements AstBuilderInterface<array<Node>>
@@ -27,10 +28,13 @@ final readonly class AstBuilder implements AstBuilderInterface
     #[Override]
     public function build(FileIr $file): array
     {
-        $nodes = [];
-
         if ($file->isStrict) {
-            $nodes[] = new Declare_([new DeclareItem(new Identifier('strict_types'), new Int_(1))]);
+            $nodes = [
+                new Declare_([new DeclareItem(new Identifier('strict_types'), new Int_(1))]),
+                new Nop(),
+            ];
+        } else {
+            $nodes = [];
         }
 
         $nodes[] = $file->component->accept($this->builder);
