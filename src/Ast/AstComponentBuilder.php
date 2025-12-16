@@ -22,7 +22,17 @@ final readonly class AstComponentBuilder implements AstComponentBuilderInterface
     #[Override]
     public function buildClass(ClassIr $class): Node
     {
-        return $this->factory->class($class->name())->getNode();
+        $stmt = $this->factory->class($class->name);
+
+        if ($class->isFinal) {
+            $stmt->makeFinal();
+        }
+
+        if ($class->isReadonly) {
+            $stmt->makeReadonly();
+        }
+
+        return $stmt->getNode();
     }
 
     #[Override]

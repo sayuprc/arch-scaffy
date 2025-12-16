@@ -9,8 +9,11 @@ use Override;
 
 final readonly class ClassIr implements ComponentIrInterface
 {
-    public function __construct(public string $name)
-    {
+    public function __construct(
+        public string $name,
+        public bool $isFinal,
+        public bool $isReadonly,
+    ) {
     }
 
     #[Override]
