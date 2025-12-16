@@ -20,11 +20,11 @@ final readonly class IrConverter implements IrConverterInterface
     {
         $fileIrs = [];
 
-        foreach ($blueprint->features as $feature) {
+        foreach ($blueprint->features as $name => $feature) {
             foreach ($feature->components as $component) {
                 $layer = $blueprint->getLayer($component->layer);
 
-                $fileIrs[] = new FileIr(
+                $fileIrs[$name][] = new FileIr(
                     $layer->output,
                     $config->global->strict,
                     $layer->namespace,
