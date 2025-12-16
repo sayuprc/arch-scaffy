@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Blueprint\Feature\Validator;
+namespace Tests\Unit\Blueprint\Feature\Validator;
 
 use ArchScaffy\Blueprint\Feature\Validator\FeatureValidator;
 use ArchScaffy\Validator\ValidationError;

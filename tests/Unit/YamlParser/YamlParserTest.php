@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\YamlParser;
+namespace Tests\Unit\YamlParser;
 
 use ArchScaffy\YamlParser\YamlParser;
 use PHPUnit\Framework\Attributes\Test;

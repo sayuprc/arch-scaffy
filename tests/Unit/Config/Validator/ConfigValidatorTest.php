@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Config\Validator;
+namespace Tests\Unit\Config\Validator;
 
 use ArchScaffy\Config\Class\Validator\ClassConfigValidatorInterface;
 use ArchScaffy\Config\Global\Validator\GlobalConfigValidatorInterface;
