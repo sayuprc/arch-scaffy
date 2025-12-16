@@ -29,7 +29,7 @@ final readonly class IrConverter implements IrConverterInterface
                     $config->global->strict,
                     $layer->namespace,
                     match ($component->kind) {
-                        Kind::ClassKind => $this->toClass($component),
+                        Kind::ClassKind => $this->toClass($config, $component),
                         Kind::Interface => $this->toInterface($component),
                     },
                 );
@@ -39,9 +39,13 @@ final readonly class IrConverter implements IrConverterInterface
         return $fileIrs;
     }
 
-    private function toClass(Component $component): ClassIr
+    private function toClass(Config $config, Component $component): ClassIr
     {
-        return new ClassIr($component->name);
+        return new ClassIr(
+            $component->name,
+            $config->class->final,
+            $config->class->readonly
+        );
     }
 
     private function toInterface(Component $component): InterfaceIr
