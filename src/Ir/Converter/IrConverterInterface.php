@@ -11,7 +11,7 @@ use ArchScaffy\Ir\FileIr;
 interface IrConverterInterface
 {
     /**
-     * @return array<FileIr>
+     * @return array<string, array<FileIr>>
      */
     public function toFileIrs(Config $config, Blueprint $blueprint): array;
 }

@@ -72,26 +72,45 @@ final class GenerateCommand extends Command
 
         $irs = $this->irConverter->toFileIrs($configResult->unwrap(), $blueprintResult->unwrap());
 
-        foreach ($irs as $ir) {
-            if (file_exists($outputPath = sprintf('%s/%s', getcwd(), $ir->output))) {
-                $output->writeln(sprintf('Generation is skipped since a corresponding output destination already exists: %s', $outputPath));
+        foreach ($irs as $files) {
+            $shouldSkip = false;
 
+            foreach ($files as $file) {
+                $outputPath = sprintf('%s/%s', getcwd(), $file->output);
+
+                if ($shouldSkip || file_exists($outputPath)) {
+                    $shouldSkip = true;
+
+                    $filePath = sprintf('%s/%s', getcwd(), $file->getFilePath());
+
+                    $output->writeln(
+                        sprintf(
+                            'Generation is skipped since a corresponding output destination already exists: %s',
+                            $filePath,
+                        )
+                    );
+                }
+            }
+
+            if ($shouldSkip) {
                 continue;
             }
 
-            $filePath = sprintf('%s/%s', getcwd(), $ir->getFilePath());
+            foreach ($files as $file) {
+                $filePath = sprintf('%s/%s', getcwd(), $file->getFilePath());
 
-            $dir = dirname($filePath);
-            if (! is_dir($dir)) {
-                mkdir(directory: $dir, recursive: true);
+                $dir = dirname($filePath);
+                if (! is_dir($dir)) {
+                    mkdir(directory: $dir, recursive: true);
+                }
+
+                $this->writer->write(
+                    $this->printer->print($this->astBuilder->build($file)),
+                    $filePath,
+                );
+
+                $output->writeln(sprintf('Created: %s', $filePath));
             }
-
-            $this->writer->write(
-                $this->printer->print($this->astBuilder->build($ir)),
-                $filePath,
-            );
-
-            $output->writeln(sprintf('Created: %s', $filePath));
         }
 
         return Command::SUCCESS;
