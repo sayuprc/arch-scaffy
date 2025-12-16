@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Blueprint\Layer\Validator;
+namespace Tests\Unit\Blueprint\Layer\Validator;
 
 use ArchScaffy\Blueprint\Layer\Validator\LayerValidator;
 use ArchScaffy\Validator\ValidationError;
