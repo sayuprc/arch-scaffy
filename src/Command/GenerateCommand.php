@@ -76,17 +76,13 @@ final class GenerateCommand extends Command
             $shouldSkip = false;
 
             foreach ($files as $file) {
-                $outputPath = sprintf('%s/%s', getcwd(), $file->output);
-
-                if ($shouldSkip || file_exists($outputPath)) {
+                if ($shouldSkip || file_exists($file->output)) {
                     $shouldSkip = true;
-
-                    $filePath = sprintf('%s/%s', getcwd(), $file->getFilePath());
 
                     $output->writeln(
                         sprintf(
                             'Generation is skipped since a corresponding output destination already exists: %s',
-                            $filePath,
+                            $file->getFilePath(),
                         )
                     );
                 }
@@ -97,19 +93,17 @@ final class GenerateCommand extends Command
             }
 
             foreach ($files as $file) {
-                $filePath = sprintf('%s/%s', getcwd(), $file->getFilePath());
-
-                $dir = dirname($filePath);
+                $dir = dirname($file->getFilePath());
                 if (! is_dir($dir)) {
                     mkdir(directory: $dir, recursive: true);
                 }
 
                 $this->writer->write(
                     $this->printer->print($this->astBuilder->build($file)),
-                    $filePath,
+                    $file->getFilePath(),
                 );
 
-                $output->writeln(sprintf('Created: %s', $filePath));
+                $output->writeln(sprintf('Created: %s', $file->getFilePath()));
             }
         }
 

@@ -44,17 +44,17 @@ class IrConverterTest extends TestCase
         $this->assertArrayHasKey('User', $irs);
         $this->assertCount(3, $irs['User']);
 
-        $this->assertSame('app/Domain', $irs['User'][0]->output);
+        $this->assertSame('./app/Domain', $irs['User'][0]->output);
         $this->assertSame('App\Domain', $irs['User'][0]->namespace);
         $this->assertTrue($irs['User'][0]->isStrict);
         $this->assertInstanceOf(ClassIr::class, $irs['User'][0]->component);
 
-        $this->assertSame('app/Domain', $irs['User'][1]->output);
+        $this->assertSame('./app/Domain', $irs['User'][1]->output);
         $this->assertSame('App\Domain', $irs['User'][1]->namespace);
         $this->assertTrue($irs['User'][1]->isStrict);
         $this->assertInstanceOf(InterfaceIr::class, $irs['User'][1]->component);
 
-        $this->assertSame('app/UseCase', $irs['User'][2]->output);
+        $this->assertSame('./app/UseCase', $irs['User'][2]->output);
         $this->assertSame('App\UseCase', $irs['User'][2]->namespace);
         $this->assertTrue($irs['User'][2]->isStrict);
         $this->assertInstanceOf(ClassIr::class, $irs['User'][2]->component);
