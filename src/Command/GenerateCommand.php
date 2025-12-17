@@ -10,9 +10,12 @@ use ArchScaffy\Blueprint\BlueprintFactory;
 use ArchScaffy\Config\ConfigFactory;
 use ArchScaffy\Ir\Converter\IrConverterInterface;
 use ArchScaffy\Writer\WriterInterface;
+use Override;
 use PhpParser\Node;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
@@ -21,6 +24,26 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class GenerateCommand extends Command
 {
+    /**
+     * @var array<array{string, string, int, string, string}>
+     */
+    private const array OPTIONALS = [
+        [
+            'config',
+            'c',
+            InputOption::VALUE_OPTIONAL,
+            'Path to config file',
+            'scaffy.config.yaml',
+        ],
+        [
+            'blueprint',
+            'b',
+            InputOption::VALUE_OPTIONAL,
+            'Path to blueprint file',
+            'scaffy.blueprint.yaml',
+        ],
+    ];
+
     /**
      * @param AstBuilderInterface<array<Node>> $astBuilder
      * @param PrinterInterface<Node>           $printer
@@ -36,16 +59,32 @@ final class GenerateCommand extends Command
         parent::__construct();
     }
 
-    public function __invoke(OutputInterface $output): int
+    #[Override]
+    protected function configure(): void
     {
-        $configFile = getcwd() . '/scaffy.config.yaml';
+        foreach (self::OPTIONALS as [$name, $shourtcut, $mode, $description, $default]) {
+            $this->addOption(
+                name: $name,
+                shortcut: $shourtcut,
+                mode: $mode,
+                description: $description,
+                default: $default
+            );
+        }
+    }
+
+    public function __invoke(InputInterface $input, OutputInterface $output): int
+    {
+        $configFile = $input->getOption('config');
+        assert(is_string($configFile));
         if (! file_exists($configFile)) {
             $output->writeln(sprintf('The file %s could not be found.', $configFile));
 
             return Command::FAILURE;
         }
 
-        $blueprintfFile = getcwd() . '/scaffy.blueprint.yaml';
+        $blueprintfFile = $input->getOption('blueprint');
+        assert(is_string($blueprintfFile));
         if (! file_exists($blueprintfFile)) {
             $output->writeln(sprintf('The file %s could not be found.', $blueprintfFile));
 
