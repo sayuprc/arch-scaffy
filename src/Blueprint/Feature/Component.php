@@ -6,10 +6,14 @@ namespace ArchScaffy\Blueprint\Feature;
 
 final readonly class Component
 {
+    /**
+     * @param array<string, string> $placeholders
+     */
     public function __construct(
         public string $name,
         public string $layer,
         public Kind $kind,
+        public array $placeholders = [],
     ) {
     }
 }
