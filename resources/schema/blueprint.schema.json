@@ -48,6 +48,12 @@
                                         "interface"
                                     ],
                                     "description": "Type of the component"
+                                },
+                                "placeholders": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
                                 }
                             },
                             "required": [
