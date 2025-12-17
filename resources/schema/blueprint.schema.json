@@ -31,35 +31,13 @@
                     "components": {
                         "type": "array",
                         "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "description": "Component name"
+                            "oneOf": [
+                                {
+                                    "$ref": "#/definitions/classComponent"
                                 },
-                                "layer": {
-                                    "type": "string",
-                                    "description": "Name of the layer the component belongs to"
-                                },
-                                "kind": {
-                                    "type": "string",
-                                    "enum": [
-                                        "class",
-                                        "interface"
-                                    ],
-                                    "description": "Type of the component"
-                                },
-                                "placeholders": {
-                                    "type": "object",
-                                    "additionalProperties": {
-                                        "type": "string"
-                                    }
+                                {
+                                    "$ref": "#/definitions/interfaceComponent"
                                 }
-                            },
-                            "required": [
-                                "name",
-                                "layer",
-                                "kind"
                             ]
                         }
                     }
@@ -73,5 +51,68 @@
     "required": [
         "layers",
         "features"
-    ]
+    ],
+    "definitions": {
+        "baseComponent": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Component name"
+                },
+                "layer": {
+                    "type": "string",
+                    "description": "Name of the layer the component belongs to"
+                },
+                "kind": {
+                    "type": "string",
+                    "enum": [
+                        "class",
+                        "interface"
+                    ]
+                },
+                "placeholders": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "name",
+                "layer",
+                "kind"
+            ]
+        },
+        "classComponent": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/baseComponent"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "kind": {
+                            "const": "class"
+                        }
+                    }
+                }
+            ]
+        },
+        "interfaceComponent": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/baseComponent"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "kind": {
+                            "const": "interface"
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }
