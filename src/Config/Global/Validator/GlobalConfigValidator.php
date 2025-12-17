@@ -28,7 +28,7 @@ final class GlobalConfigValidator extends Validator implements GlobalConfigValid
             return false;
         }
 
-        foreach (['strict'] as $key) {
+        foreach (['root', 'strict'] as $key) {
             if (! array_key_exists($key, $global)) {
                 $this->addMissingKeyError("{$rootKey}.{$key}", $key);
             }

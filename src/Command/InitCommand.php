@@ -18,6 +18,7 @@ final class InitCommand extends Command
 {
     private const array DEFAULT_CONFIG = [
         'global' => [
+            'root' => '.',
             'strict' => true,
         ],
         'class' => [

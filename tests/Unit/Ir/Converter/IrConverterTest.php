@@ -23,7 +23,7 @@ class IrConverterTest extends TestCase
     #[Test]
     public function convertToIr(): void
     {
-        $config = new Config(new GlobalConfig(strict: true), new ClassConfig(final: true, readonly: true));
+        $config = new Config(new GlobalConfig(root: '.', strict: true), new ClassConfig(final: true, readonly: true));
         $blueprint = new Blueprint(
             [
                 'Domain' => new Layer(output: 'app/Domain', namespace: 'App\Domain'),
