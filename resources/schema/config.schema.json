@@ -9,6 +9,11 @@
             "type": "object",
             "description": "Settings applied to all generated files",
             "properties": {
+                "root": {
+                    "type": "string",
+                    "description": "The base directory for file output, as defined in the configuration file",
+                    "default": "."
+                },
                 "strict": {
                     "type": "boolean",
                     "description": "Strict mode enabled",
@@ -16,6 +21,7 @@
                 }
             },
             "required": [
+                "root",
                 "strict"
             ]
         },

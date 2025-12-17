@@ -25,7 +25,7 @@ final readonly class IrConverter implements IrConverterInterface
                 $layer = $blueprint->getLayer($component->layer);
 
                 $fileIrs[$name][] = new FileIr(
-                    $layer->output,
+                    $config->global->root . '/' . $layer->output,
                     $config->global->strict,
                     $layer->namespace,
                     match ($component->kind) {

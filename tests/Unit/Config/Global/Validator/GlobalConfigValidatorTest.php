@@ -27,6 +27,7 @@ class GlobalConfigValidatorTest extends TestCase
             'correct global' => [
                 [
                     'global' => [
+                        'root' => '.',
                         'strict' => true,
                     ],
                 ],
@@ -51,6 +52,7 @@ class GlobalConfigValidatorTest extends TestCase
             'global does not exists' => [
                 'data' => [
                     'incorrect global' => [
+                        'root' => '.',
                         'strict' => false,
                     ],
                 ],
@@ -69,10 +71,12 @@ class GlobalConfigValidatorTest extends TestCase
             'strict does not exists' => [
                 'data' => [
                     'global' => [
+                        'incorrect root' => '.',
                         'incorrect strict' => false,
                     ],
                 ],
                 'errors' => [
+                    new ValidationError('global.root', 'Missing required key: "root"'),
                     new ValidationError('global.strict', 'Missing required key: "strict"'),
                 ],
             ],
