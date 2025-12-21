@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ArchScaffy\Blueprint\Feature;
+namespace ArchScaffy\Blueprint\Feature\Component;
 
-final readonly class Component
+final readonly class AbstractClassComponent implements ComponentInterface
 {
     /**
      * @param array<string, string> $placeholders
@@ -12,11 +12,8 @@ final readonly class Component
     public function __construct(
         public string $name,
         public string $layer,
-        public Kind $kind,
         public array $placeholders = [],
-        public ?bool $final = null,
         public ?bool $readonly = null,
-        public bool $abstract = false,
     ) {
     }
 }
