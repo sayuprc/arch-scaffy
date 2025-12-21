@@ -36,6 +36,9 @@
                                     "$ref": "#/definitions/classComponent"
                                 },
                                 {
+                                    "$ref": "#/definitions/abstractClassComponent"
+                                },
+                                {
                                     "$ref": "#/definitions/interfaceComponent"
                                 }
                             ]
@@ -84,7 +87,7 @@
                 "kind"
             ]
         },
-        "classComponent": {
+        "classBaseComponent": {
             "allOf": [
                 {
                     "$ref": "#/definitions/baseComponent"
@@ -94,7 +97,19 @@
                     "properties": {
                         "kind": {
                             "const": "class"
-                        },
+                        }
+                    }
+                }
+            ]
+        },
+        "classComponent": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/classBaseComponent"
+                },
+                {
+                    "type": "object",
+                    "properties": {
                         "final": {
                             "type": "boolean"
                         },
@@ -102,8 +117,31 @@
                             "type": "boolean"
                         },
                         "abstract": {
-                            "type": "boolean"
+                            "const": false
                         }
+                    }
+                }
+            ]
+        },
+        "abstractClassComponent": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/classBaseComponent"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "abstract": {
+                            "const": true
+                        }
+                    },
+                    "required": [
+                        "abstract"
+                    ],
+                    "not": {
+                        "required": [
+                            "final"
+                        ]
                     }
                 }
             ]
