@@ -13,6 +13,7 @@ final readonly class ClassIr implements ComponentIrInterface
         public string $name,
         public bool $isFinal,
         public bool $isReadonly,
+        public bool $isAbstract,
     ) {
     }
 

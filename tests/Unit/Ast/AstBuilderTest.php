@@ -36,7 +36,7 @@ class AstBuilderTest extends TestCase
             output: 'app/Domain',
             isStrict: false,
             namespace: 'App\Domain',
-            component: new ClassIr('A', false, false),
+            component: new ClassIr('A', false, false, false),
         );
 
         $this->astComponentBuilder->shouldReceive('buildClass')
@@ -60,7 +60,7 @@ class AstBuilderTest extends TestCase
             output: 'app/Domain',
             isStrict: true,
             namespace: 'App\Domain',
-            component: new ClassIr('A', false, false),
+            component: new ClassIr('A', false, false, false),
         );
 
         $this->astComponentBuilder->shouldReceive('buildClass')
