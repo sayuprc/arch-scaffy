@@ -84,6 +84,7 @@ final readonly class IrConverter implements IrConverterInterface
             $component->name,
             $component->final ?? $config->class->final,
             $component->readonly ?? $config->class->readonly,
+            $component->abstract,
         );
     }
 

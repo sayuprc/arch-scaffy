@@ -32,6 +32,10 @@ final readonly class AstComponentBuilder implements AstComponentBuilderInterface
             $stmt->makeReadonly();
         }
 
+        if ($class->isAbstract) {
+            $stmt->makeAbstract();
+        }
+
         return $stmt->getNode();
     }
 

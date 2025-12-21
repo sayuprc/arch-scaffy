@@ -42,15 +42,18 @@ class AstComponentBuilderTest extends TestCase
         $this->assertSame($ir->name, $node->name->name);
         $this->assertSame($ir->isFinal, $node->isFinal());
         $this->assertSame($ir->isReadonly, $node->isReadonly());
+        $this->assertSame($ir->isAbstract, $node->isAbstract());
     }
 
     public static function buildClassDataProvider(): array
     {
         return [
-            'non-final non-readonly class' => [new ClassIr(name: 'A', isFinal: false, isReadonly: false)],
-            'final class' => [new ClassIr(name: 'B', isFinal: true, isReadonly: false)],
-            'readonly class' => [new ClassIr(name: 'C', isFinal: false, isReadonly: true)],
-            'final readonly class' => [new ClassIr(name: 'D', isFinal: true, isReadonly: true)],
+            'non-final non-readonly class' => [new ClassIr(name: 'A', isFinal: false, isReadonly: false, isAbstract: false)],
+            'final class' => [new ClassIr(name: 'B', isFinal: true, isReadonly: false, isAbstract: false)],
+            'readonly class' => [new ClassIr(name: 'C', isFinal: false, isReadonly: true, isAbstract: false)],
+            'final readonly class' => [new ClassIr(name: 'D', isFinal: true, isReadonly: true, isAbstract: false)],
+            'abstract class' => [new ClassIr(name: 'E', isFinal: false, isReadonly: false, isAbstract: true)],
+            'readonly abstract class' => [new ClassIr(name: 'F', isFinal: false, isReadonly: true, isAbstract: true)],
         ];
     }
 

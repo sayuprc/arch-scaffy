@@ -16,6 +16,7 @@ final readonly class Component
         public array $placeholders = [],
         public ?bool $final = null,
         public ?bool $readonly = null,
+        public bool $abstract = false,
     ) {
     }
 }
