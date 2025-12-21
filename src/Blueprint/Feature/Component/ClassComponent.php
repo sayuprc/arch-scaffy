@@ -15,6 +15,7 @@ final readonly class ClassComponent implements ComponentInterface
         public array $placeholders = [],
         public ?bool $final = null,
         public ?bool $readonly = null,
+        public array $properties = [],
     ) {
     }
 }

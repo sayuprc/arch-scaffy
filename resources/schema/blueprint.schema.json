@@ -118,6 +118,12 @@
                         },
                         "abstract": {
                             "const": false
+                        },
+                        "properties": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/classPropertyComponent"
+                            }
                         }
                     }
                 }
@@ -133,6 +139,12 @@
                     "properties": {
                         "abstract": {
                             "const": true
+                        },
+                        "properties": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/abstractClassPropertyComponent"
+                            }
                         }
                     },
                     "required": [
@@ -156,9 +168,96 @@
                     "properties": {
                         "kind": {
                             "const": "interface"
+                        },
+                        "properties": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/interfacePropertyComponent"
+                            }
                         }
                     }
                 }
+            ]
+        },
+        "propertyBaseComponent": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "access": {
+                    "type": "string",
+                    "enum": [
+                        "public",
+                        "protected",
+                        "private"
+                    ]
+                },
+                "static": {
+                    "type": "boolean"
+                },
+                "default": {}
+            },
+            "required": [
+                "name",
+                "type",
+                "access"
+            ]
+        },
+        "classPropertyComponent": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/propertyBaseComponent"
+                },
+                {
+                    "type": "object",
+                    "not": {
+                        "required": [
+                            "abstract"
+                        ]
+                    }
+                }
+            ]
+        },
+        "abstractClassPropertyComponent": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/propertyBaseComponent"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "abstract": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            ]
+        },
+        "interfacePropertyComponent": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "get": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "set": {
+                    "type": "boolean",
+                    "default": true
+                }
+            },
+            "required": [
+                "name",
+                "type"
             ]
         }
     }
