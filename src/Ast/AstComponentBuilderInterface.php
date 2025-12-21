@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ast;
 
+use ArchScaffy\Ir\Component\AbstractClassIr;
 use ArchScaffy\Ir\Component\ClassIr;
 use ArchScaffy\Ir\Component\InterfaceIr;
 
@@ -16,6 +17,11 @@ interface AstComponentBuilderInterface
      * @return T
      */
     public function buildClass(ClassIr $class);
+
+    /**
+     * @return T
+     */
+    public function buildAbstractClass(AbstractClassIr $abstractClass);
 
     /**
      * @return T

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ast;
 
+use ArchScaffy\Ir\Component\AbstractClassIr;
 use ArchScaffy\Ir\Component\ClassIr;
 use ArchScaffy\Ir\Component\InterfaceIr;
 use Override;
@@ -32,8 +33,17 @@ final readonly class AstComponentBuilder implements AstComponentBuilderInterface
             $stmt->makeReadonly();
         }
 
-        if ($class->isAbstract) {
-            $stmt->makeAbstract();
+        return $stmt->getNode();
+    }
+
+    #[Override]
+    public function buildAbstractClass(AbstractClassIr $abstractClass)
+    {
+        $stmt = $this->factory->class($abstractClass->name)
+            ->makeAbstract();
+
+        if ($abstractClass->isReadonly) {
+            $stmt->makeReadonly();
         }
 
         return $stmt->getNode();
