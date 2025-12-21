@@ -14,6 +14,8 @@ final readonly class Component
         public string $layer,
         public Kind $kind,
         public array $placeholders = [],
+        public ?bool $final = null,
+        public ?bool $readonly = null,
     ) {
     }
 }

@@ -94,6 +94,12 @@
                     "properties": {
                         "kind": {
                             "const": "class"
+                        },
+                        "final": {
+                            "type": "boolean"
+                        },
+                        "readonly": {
+                            "type": "boolean"
                         }
                     }
                 }
