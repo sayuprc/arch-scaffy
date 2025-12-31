@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Command;
 
-use ArchScaffy\Ast\AstBuilderInterface;
+use ArchScaffy\Ast\Builder\AstBuilderInterface;
 use ArchScaffy\Ast\Printer\PrinterInterface;
-use ArchScaffy\Blueprint\BlueprintFactory;
-use ArchScaffy\Config\ConfigFactory;
-use ArchScaffy\Ir\Converter\IrConverterInterface;
+use ArchScaffy\Converter\IrConverterInterface;
+use ArchScaffy\Dto\Blueprint\BlueprintFactory;
+use ArchScaffy\Dto\Config\ConfigFactory;
 use ArchScaffy\Writer\WriterInterface;
 use Override;
 use PhpParser\Node;

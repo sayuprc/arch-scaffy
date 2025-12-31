@@ -2,39 +2,39 @@
 
 declare(strict_types=1);
 
-use ArchScaffy\Ast\AstBuilder;
-use ArchScaffy\Ast\AstBuilderInterface;
-use ArchScaffy\Ast\AstComponentBuilder;
-use ArchScaffy\Ast\AstComponentBuilderInterface;
+use ArchScaffy\Ast\Builder\AstBuilder;
+use ArchScaffy\Ast\Builder\AstBuilderInterface;
+use ArchScaffy\Ast\Builder\AstComponentBuilder;
+use ArchScaffy\Ast\Builder\AstComponentBuilderInterface;
 use ArchScaffy\Ast\Printer\Printer;
 use ArchScaffy\Ast\Printer\PrinterInterface;
-use ArchScaffy\Blueprint\Feature\Validator\FeatureValidator;
-use ArchScaffy\Blueprint\Feature\Validator\FeatureValidatorInterface;
-use ArchScaffy\Blueprint\Layer\Validator\LayerValidator;
-use ArchScaffy\Blueprint\Layer\Validator\LayerValidatorInterface;
-use ArchScaffy\Blueprint\Validator\BlueprintValidator;
-use ArchScaffy\Blueprint\Validator\BlueprintValidatorInterface;
-use ArchScaffy\Config\Class\Validator\ClassConfigValidator;
-use ArchScaffy\Config\Class\Validator\ClassConfigValidatorInterface;
-use ArchScaffy\Config\Global\Validator\GlobalConfigValidator;
-use ArchScaffy\Config\Global\Validator\GlobalConfigValidatorInterface;
-use ArchScaffy\Config\Validator\ConfigValidator;
-use ArchScaffy\Config\Validator\ConfigValidatorInterface;
-use ArchScaffy\Ir\Converter\IrConverter;
-use ArchScaffy\Ir\Converter\IrConverterInterface;
+use ArchScaffy\Converter\IrConverter;
+use ArchScaffy\Converter\IrConverterInterface;
+use ArchScaffy\Dto\Blueprint\Feature\Validator\FeatureValidator;
+use ArchScaffy\Dto\Blueprint\Feature\Validator\FeatureValidatorInterface;
+use ArchScaffy\Dto\Blueprint\Layer\Validator\LayerValidator;
+use ArchScaffy\Dto\Blueprint\Layer\Validator\LayerValidatorInterface;
+use ArchScaffy\Dto\Blueprint\Validator\BlueprintValidator;
+use ArchScaffy\Dto\Blueprint\Validator\BlueprintValidatorInterface;
+use ArchScaffy\Dto\Config\Class\Validator\ClassConfigValidator;
+use ArchScaffy\Dto\Config\Class\Validator\ClassConfigValidatorInterface;
+use ArchScaffy\Dto\Config\Global\Validator\GlobalConfigValidator;
+use ArchScaffy\Dto\Config\Global\Validator\GlobalConfigValidatorInterface;
+use ArchScaffy\Dto\Config\Validator\ConfigValidator;
+use ArchScaffy\Dto\Config\Validator\ConfigValidatorInterface;
 use ArchScaffy\Mapper\Mapper;
 use ArchScaffy\Mapper\MapperInterface;
+use ArchScaffy\Parser\ParserInterface;
+use ArchScaffy\Parser\Yaml\YamlParser;
 use ArchScaffy\Writer\Writer;
 use ArchScaffy\Writer\WriterInterface;
-use ArchScaffy\YamlParser\YamlParser;
-use ArchScaffy\YamlParser\YamlParserInterface;
 use PhpParser\PhpVersion;
 use PhpParser\PrettyPrinter\Standard;
 
 use function DI\autowire;
 
 return [
-    YamlParserInterface::class => autowire(YamlParser::class),
+    ParserInterface::class => autowire(YamlParser::class),
     ConfigValidatorInterface::class => autowire(ConfigValidator::class),
     GlobalConfigValidatorInterface::class => autowire(GlobalConfigValidator::class),
     ClassConfigValidatorInterface::class => autowire(ClassConfigValidator::class),

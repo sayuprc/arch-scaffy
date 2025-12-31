@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ir;
 
-use ArchScaffy\Ir\Component\ComponentIrInterface;
-
 final readonly class FileIr
 {
     public function __construct(
