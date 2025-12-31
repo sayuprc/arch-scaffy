@@ -6,7 +6,6 @@ namespace Tests\Unit\Converter;
 
 use ArchScaffy\Converter\IrConverter;
 use ArchScaffy\Dto\Blueprint\Blueprint;
-use ArchScaffy\Dto\Blueprint\Feature\Component\AbstractClassComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Component\ClassComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Component\InterfaceComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Feature;
@@ -36,7 +35,7 @@ class IrConverterTest extends TestCase
                 'User' => new Feature([
                     new ClassComponent(name: 'User', layer: 'Domain'),
                     new InterfaceComponent(name: 'UserRepositoryInterface', layer: 'Domain'),
-                    new AbstractClassComponent(name: 'AbstractUserRepository', layer: 'Infrastructure'),
+                    new ClassComponent(name: 'AbstractUserRepository', layer: 'Infrastructure', abstract: true),
                     new ClassComponent(name: 'CreateUseCase', layer: 'UseCase'),
                     new ClassComponent(name: 'DeleteUseCase', layer: 'UseCase', placeholders: ['Sub' => 'Delete']),
                 ]),

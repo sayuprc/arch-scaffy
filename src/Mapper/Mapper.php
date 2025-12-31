@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Mapper;
 
-use ArchScaffy\Dto\Blueprint\Feature\Component\AbstractClassComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Component\ClassComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Component\ComponentInterface;
 use ArchScaffy\Dto\Blueprint\Feature\Component\InterfaceComponent;
@@ -25,11 +24,9 @@ readonly class Mapper implements MapperInterface
         return $this->builder
             ->infer(
                 ComponentInterface::class,
-                /** @return class-string<ClassComponent|AbstractClassComponent|InterfaceComponent> */
-                fn (string $kind, ?bool $abstract = null): string => match ($kind) {
-                    'class' => $abstract
-                        ? AbstractClassComponent::class
-                        : ClassComponent::class,
+                /** @return class-string<ClassComponent|InterfaceComponent> */
+                fn (string $kind): string => match ($kind) {
+                    'class' => ClassComponent::class,
                     'interface' => InterfaceComponent::class,
                     default => throw new DomainException("Unhandled kind {$kind}")
                 }
