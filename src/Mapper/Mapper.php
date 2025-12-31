@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Mapper;
 
-use ArchScaffy\Blueprint\Feature\Component\AbstractClassComponent;
-use ArchScaffy\Blueprint\Feature\Component\ClassComponent;
-use ArchScaffy\Blueprint\Feature\Component\ComponentInterface;
-use ArchScaffy\Blueprint\Feature\Component\InterfaceComponent;
+use ArchScaffy\Dto\Blueprint\Feature\Component\AbstractClassComponent;
+use ArchScaffy\Dto\Blueprint\Feature\Component\ClassComponent;
+use ArchScaffy\Dto\Blueprint\Feature\Component\ComponentInterface;
+use ArchScaffy\Dto\Blueprint\Feature\Component\InterfaceComponent;
 use CuyZ\Valinor\Mapper\Source\Source;
 use CuyZ\Valinor\MapperBuilder;
 use DomainException;
