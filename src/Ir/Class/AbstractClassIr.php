@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace ArchScaffy\Ir\Class;
 
 use ArchScaffy\Ast\Builder\AstComponentBuilderInterface;
-use ArchScaffy\Ir\ComponentIrInterface;
 use Override;
 
-final readonly class AbstractClassIr implements ComponentIrInterface
+final readonly class AbstractClassIr implements ClassIrInterface
 {
     public function __construct(
-        public string $name,
-        public bool $isReadonly,
+        private string $name,
+        private bool $isReadonly,
     ) {
     }
 
@@ -25,6 +24,24 @@ final readonly class AbstractClassIr implements ComponentIrInterface
     #[Override]
     public function accept(AstComponentBuilderInterface $builder)
     {
-        return $builder->buildAbstractClass($this);
+        return $builder->buildClass($this);
+    }
+
+    #[Override]
+    public function isFinal(): bool
+    {
+        return false;
+    }
+
+    #[Override]
+    public function isReadonly(): bool
+    {
+        return $this->isReadonly;
+    }
+
+    #[Override]
+    public function isAbstract(): bool
+    {
+        return true;
     }
 }

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Ast\Builder;
 
-use ArchScaffy\Ir\Class\AbstractClassIr;
-use ArchScaffy\Ir\Class\ClassIr;
+use ArchScaffy\Ir\Class\ClassIrInterface;
 use ArchScaffy\Ir\Class\InterfaceIr;
 use Override;
 use PhpParser\BuilderFactory;
@@ -21,29 +20,20 @@ final readonly class AstComponentBuilder implements AstComponentBuilderInterface
     }
 
     #[Override]
-    public function buildClass(ClassIr $class): Node
+    public function buildClass(ClassIrInterface $class): Node
     {
-        $stmt = $this->factory->class($class->name);
+        $stmt = $this->factory->class($class->name());
 
-        if ($class->isFinal) {
+        if ($class->isFinal()) {
             $stmt->makeFinal();
         }
 
-        if ($class->isReadonly) {
+        if ($class->isReadonly()) {
             $stmt->makeReadonly();
         }
 
-        return $stmt->getNode();
-    }
-
-    #[Override]
-    public function buildAbstractClass(AbstractClassIr $abstractClass)
-    {
-        $stmt = $this->factory->class($abstractClass->name)
-            ->makeAbstract();
-
-        if ($abstractClass->isReadonly) {
-            $stmt->makeReadonly();
+        if ($class->isAbstract()) {
+            $stmt->makeAbstract();
         }
 
         return $stmt->getNode();
