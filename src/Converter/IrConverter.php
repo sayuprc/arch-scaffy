@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ArchScaffy\Converter;
 
 use ArchScaffy\Dto\Blueprint\Blueprint;
-use ArchScaffy\Dto\Blueprint\Feature\Component\AbstractClassComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Component\ClassComponent;
 use ArchScaffy\Dto\Blueprint\Feature\Component\ComponentInterface;
 use ArchScaffy\Dto\Blueprint\Feature\Component\InterfaceComponent;
@@ -13,6 +12,7 @@ use ArchScaffy\Dto\Blueprint\Layer\Layer;
 use ArchScaffy\Dto\Config\Config;
 use ArchScaffy\Ir\Class\AbstractClassIr;
 use ArchScaffy\Ir\Class\ClassIr;
+use ArchScaffy\Ir\Class\ClassIrInterface;
 use ArchScaffy\Ir\Class\InterfaceIr;
 use ArchScaffy\Ir\FileIr;
 use Override;
@@ -36,7 +36,6 @@ final readonly class IrConverter implements IrConverterInterface
                     $this->resolveNamespace($layer, $name, $component),
                     match (true) {
                         $component instanceof ClassComponent => $this->toClass($config, $component),
-                        $component instanceof AbstractClassComponent => $this->toAbstractClass($config, $component),
                         $component instanceof InterfaceComponent => $this->toInterface($component),
                     },
                 );
@@ -82,21 +81,20 @@ final readonly class IrConverter implements IrConverterInterface
         return $template;
     }
 
-    private function toClass(Config $config, ClassComponent $component): ClassIr
+    private function toClass(Config $config, ClassComponent $component): ClassIrInterface
     {
-        return new ClassIr(
-            $component->name,
-            $component->final ?? $config->class->final,
-            $component->readonly ?? $config->class->readonly,
-        );
-    }
+        $isReadonly = $component->readonly ?? $config->class->readonly;
 
-    private function toAbstractClass(Config $config, AbstractClassComponent $component): AbstractClassIr
-    {
-        return new AbstractClassIr(
-            $component->name,
-            $component->readonly ?? $config->class->readonly,
-        );
+        return $component->abstract
+            ? new AbstractClassIr(
+                $component->name,
+                $isReadonly
+            )
+            : new ClassIr(
+                $component->name,
+                $component->final ?? $config->class->final,
+                $isReadonly
+            );
     }
 
     private function toInterface(InterfaceComponent $component): InterfaceIr

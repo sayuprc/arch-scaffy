@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ArchScaffy\Dto\Blueprint\Feature\Component;
 
 /**
- * @phpstan-sealed ClassComponent|AbstractClassComponent|InterfaceComponent
+ * @phpstan-sealed ClassComponent|InterfaceComponent
  */
 interface ComponentInterface
 {
