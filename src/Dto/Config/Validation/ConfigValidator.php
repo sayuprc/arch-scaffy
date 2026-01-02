@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ArchScaffy\Dto\Config\Validation;
+
+use ArchScaffy\Dto\Config\Class\Validation\ClassConfigValidatorInterface;
+use ArchScaffy\Dto\Config\Global\Validation\GlobalConfigValidatorInterface;
+use ArchScaffy\Validation\Validator;
+use Override;
+
+final class ConfigValidator extends Validator implements ConfigValidatorInterface
+{
+    public function __construct(
+        private GlobalConfigValidatorInterface $globalConfigValidator,
+        private ClassConfigValidatorInterface $classConfigValidator,
+    ) {
+    }
+
+    #[Override]
+    public function validate(array $data): bool
+    {
+        $this->globalConfigValidator->validate($data);
+        $this->classConfigValidator->validate($data);
+
+        $this->errors = array_merge(
+            $this->globalConfigValidator->getErrors(),
+            $this->classConfigValidator->getErrors(),
+        );
+
+        return count($this->errors) === 0;
+    }
+}

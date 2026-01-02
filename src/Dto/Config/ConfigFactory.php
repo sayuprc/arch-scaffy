@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Dto\Config;
 
-use ArchScaffy\Dto\Config\Validator\ConfigValidatorInterface;
+use ArchScaffy\Dto\Config\Validation\ConfigValidatorInterface;
 use ArchScaffy\Mapper\MapperInterface;
 use ArchScaffy\Parser\ParserInterface;
-use ArchScaffy\Validator\ValidationError;
+use ArchScaffy\Validation\ValidationError;
 use ResultType\Eager\Err;
 use ResultType\Eager\Ok;
 use ResultType\Result;

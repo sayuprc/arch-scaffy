@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Dto\Blueprint;
 
-use ArchScaffy\Dto\Blueprint\Validator\BlueprintValidatorInterface;
+use ArchScaffy\Dto\Blueprint\Validation\BlueprintValidatorInterface;
 use ArchScaffy\Mapper\MapperInterface;
 use ArchScaffy\Parser\ParserInterface;
-use ArchScaffy\Validator\ValidationError;
+use ArchScaffy\Validation\ValidationError;
 use ResultType\Eager\Err;
 use ResultType\Eager\Ok;
 use ResultType\Result;
