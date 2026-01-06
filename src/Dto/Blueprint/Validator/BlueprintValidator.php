@@ -4,30 +4,27 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Dto\Blueprint\Validator;
 
-use ArchScaffy\Dto\Blueprint\Feature\Validator\FeatureValidatorInterface;
-use ArchScaffy\Dto\Blueprint\Layer\Validator\LayerValidatorInterface;
-use ArchScaffy\Validator\Validator;
+use ArchScaffy\Validator\Context\ValidationContextInterface;
+use ArchScaffy\Validator\ValidatorInterface;
 use Override;
 
-final class BlueprintValidator extends Validator implements BlueprintValidatorInterface
+final class BlueprintValidator implements BlueprintValidatorInterface
 {
     public function __construct(
-        private readonly LayerValidatorInterface $layerValidator,
-        private readonly FeatureValidatorInterface $featureValidator,
+        private ValidatorInterface $validator,
+        private BlueprintRuleSetCollection $collection,
     ) {
     }
 
     #[Override]
-    public function validate(array $data): bool
+    public function validate(ValidationContextInterface $context): bool
     {
-        $this->layerValidator->validate($data);
-        $this->featureValidator->validate($data);
+        return $this->validator->validate($this->collection, $context);
+    }
 
-        $this->errors = array_merge(
-            $this->layerValidator->getErrors(),
-            $this->featureValidator->getErrors(),
-        );
-
-        return count($this->errors) === 0;
+    #[Override]
+    public function getErrors(): array
+    {
+        return $this->validator->getErrors();
     }
 }

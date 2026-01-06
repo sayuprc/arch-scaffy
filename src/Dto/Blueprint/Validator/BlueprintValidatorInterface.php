@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Dto\Blueprint\Validator;
 
-use ArchScaffy\Dto\Blueprint\Feature\Validator\FeatureValidatorInterface;
-use ArchScaffy\Dto\Blueprint\Layer\Validator\LayerValidatorInterface;
-use ArchScaffy\Validator\ValidatorInterface;
-use Override;
+use ArchScaffy\Validator\Context\ValidationContextInterface;
+use ArchScaffy\Validator\ValidationError;
 
-/**
- * @phpstan-import-type validated_layer from LayerValidatorInterface
- * @phpstan-import-type validated_feature from FeatureValidatorInterface
- *
- * @phpstan-type validated_blueprint array{layers: validated_layer['layers'], features: validated_feature['features']}
- */
-interface BlueprintValidatorInterface extends ValidatorInterface
+interface BlueprintValidatorInterface
 {
+    public function validate(ValidationContextInterface $context): bool;
+
     /**
-     * @phpstan-assert-if-true validated_blueprint $data
+     * @return array<ValidationError>
      */
-    #[Override]
-    public function validate(array $data): bool;
+    public function getErrors(): array;
 }

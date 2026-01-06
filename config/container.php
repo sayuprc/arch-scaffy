@@ -10,22 +10,16 @@ use ArchScaffy\Ast\Printer\Printer;
 use ArchScaffy\Ast\Printer\PrinterInterface;
 use ArchScaffy\Converter\IrConverter;
 use ArchScaffy\Converter\IrConverterInterface;
-use ArchScaffy\Dto\Blueprint\Feature\Validator\FeatureValidator;
-use ArchScaffy\Dto\Blueprint\Feature\Validator\FeatureValidatorInterface;
-use ArchScaffy\Dto\Blueprint\Layer\Validator\LayerValidator;
-use ArchScaffy\Dto\Blueprint\Layer\Validator\LayerValidatorInterface;
 use ArchScaffy\Dto\Blueprint\Validator\BlueprintValidator;
 use ArchScaffy\Dto\Blueprint\Validator\BlueprintValidatorInterface;
-use ArchScaffy\Dto\Config\Class\Validator\ClassConfigValidator;
-use ArchScaffy\Dto\Config\Class\Validator\ClassConfigValidatorInterface;
-use ArchScaffy\Dto\Config\Global\Validator\GlobalConfigValidator;
-use ArchScaffy\Dto\Config\Global\Validator\GlobalConfigValidatorInterface;
 use ArchScaffy\Dto\Config\Validator\ConfigValidator;
 use ArchScaffy\Dto\Config\Validator\ConfigValidatorInterface;
 use ArchScaffy\Mapper\Mapper;
 use ArchScaffy\Mapper\MapperInterface;
 use ArchScaffy\Parser\ParserInterface;
 use ArchScaffy\Parser\Yaml\YamlParser;
+use ArchScaffy\Validator\Validator;
+use ArchScaffy\Validator\ValidatorInterface;
 use ArchScaffy\Writer\Writer;
 use ArchScaffy\Writer\WriterInterface;
 use PhpParser\PhpVersion;
@@ -36,11 +30,8 @@ use function DI\autowire;
 return [
     ParserInterface::class => autowire(YamlParser::class),
     ConfigValidatorInterface::class => autowire(ConfigValidator::class),
-    GlobalConfigValidatorInterface::class => autowire(GlobalConfigValidator::class),
-    ClassConfigValidatorInterface::class => autowire(ClassConfigValidator::class),
     BlueprintValidatorInterface::class => autowire(BlueprintValidator::class),
-    LayerValidatorInterface::class => autowire(LayerValidator::class),
-    FeatureValidatorInterface::class => autowire(FeatureValidator::class),
+    ValidatorInterface::class => autowire(Validator::class),
     AstBuilderInterface::class => autowire(AstBuilder::class),
     AstComponentBuilderInterface::class => autowire(AstComponentBuilder::class),
     PrinterInterface::class => autowire(Printer::class),

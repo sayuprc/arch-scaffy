@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace ArchScaffy\Dto\Config\Validator;
 
-use ArchScaffy\Dto\Config\Class\Validator\ClassConfigValidatorInterface;
-use ArchScaffy\Dto\Config\Global\Validator\GlobalConfigValidatorInterface;
-use ArchScaffy\Validator\ValidatorInterface;
-use Override;
+use ArchScaffy\Validator\Context\ValidationContextInterface;
+use ArchScaffy\Validator\ValidationError;
 
-/**
- * @phpstan-import-type validated_global from GlobalConfigValidatorInterface
- * @phpstan-import-type validated_class from ClassConfigValidatorInterface
- *
- * @phpstan-type validated_config array{global: validated_global['global'], class: validated_class['class']}
- */
-interface ConfigValidatorInterface extends ValidatorInterface
+interface ConfigValidatorInterface
 {
+    public function validate(ValidationContextInterface $context): bool;
+
     /**
-     * @phpstan-assert-if-true validated_config $data
+     * @return array<ValidationError>
      */
-    #[Override]
-    public function validate(array $data): bool;
+    public function getErrors(): array;
 }

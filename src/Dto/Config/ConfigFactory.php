@@ -7,6 +7,7 @@ namespace ArchScaffy\Dto\Config;
 use ArchScaffy\Dto\Config\Validator\ConfigValidatorInterface;
 use ArchScaffy\Mapper\MapperInterface;
 use ArchScaffy\Parser\ParserInterface;
+use ArchScaffy\Validator\Context\ValidationContext;
 use ArchScaffy\Validator\ValidationError;
 use ResultType\Eager\Err;
 use ResultType\Eager\Ok;
@@ -28,7 +29,7 @@ final readonly class ConfigFactory
     {
         $data = $this->parser->parseFile($file);
 
-        if (! $this->validator->validate($data)) {
+        if (! $this->validator->validate(new ValidationContext($data))) {
             return new Err($this->validator->getErrors());
         }
 
