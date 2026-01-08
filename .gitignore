@@ -2,5 +2,7 @@
 
 *.cache
 
+mise.*.toml
+
 scaffy.blueprint.yaml
 scaffy.config.yaml

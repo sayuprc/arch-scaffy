@@ -13,7 +13,8 @@ composer.json
 composer.lock
 ecs.php
 LICENSE
-Makefile
+mise.toml
+mise.*.toml
 php.ini
 phpstan.neon
 phpunit.xml
