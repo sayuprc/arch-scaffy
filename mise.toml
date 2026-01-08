@@ -1,0 +1,67 @@
+[vars]
+container = "arch-scaffy"
+uid = "$(id -u)"
+user_name = "$(id -un)"
+gid = "$(id -g)"
+group_name = "$(id -gn)"
+
+[tasks.setup]
+description = "Setup the develop environment"
+run = [{ task = "build" }, { task = "composer:install" }]
+
+[tasks.build]
+description = "Build docker image for develop environment"
+run = '''
+docker build -t arch-scaffy:0.x . \
+  --build-arg UID={{vars.uid}} \
+  --build-arg GID={{vars.gid}} \
+  --build-arg USERNAME={{vars.user_name}} \
+  --build-arg GROUPNAME={{vars.group_name}}
+'''
+
+[tasks.up]
+description = "Start the container"
+run = "docker compose up -d"
+
+[tasks.down]
+description = "Delete the container"
+run = "docker compose down"
+
+[tasks.php]
+description = "Enter php container"
+run = "docker exec -it {{vars.container}} bash"
+
+[tasks."composer:install"]
+description = "Install composer packages"
+run = "docker compose run --rm php composer install"
+
+[tasks.phpstan]
+description = "Run PHPStan"
+usage = 'arg "[path]" var=#true help="Path for static analysis (all files if not specified)"'
+run = "docker exec {{vars.container}} composer phpstan ${usage_path}"
+
+[tasks."phpstan:clear-cache"]
+description = "Clear PHPStan cache"
+run = "docker exec {{vars.container}} composer phpstan-clear-cache"
+
+[tasks.ecs]
+description = "Run ecs"
+usage = 'arg "[path]" var=#true help="Path for format check (all files if not specified)"'
+run = "docker exec {{vars.container}} composer ecs ${usage_path}"
+
+[tasks."ecs:fix"]
+description = "Run ecs fix"
+usage = 'arg "[path]" var=#true help="Paths to be automatically reformatted (all files if not specified)"'
+run = "docker exec {{vars.container}} composer ecs-fix ${usage_path}"
+
+[tasks.tests]
+description = "Run tests"
+run = "docker exec {{vars.container}} composer tests"
+
+[tasks.generate]
+quiet = true
+description = "Run scaffy generate"
+run = '''
+rm -rf example
+docker exec {{vars.container}} php bin/scaffy generate
+'''
